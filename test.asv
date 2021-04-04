@@ -1,0 +1,20 @@
+% binary to decimal
+% b1 = [0 1 1 0];
+% d1 = bi2de(b1);
+% s = b1(1:3);
+% b2 = [1 2 1 2];
+% con = [];
+x = randi([0 1],1,26);
+x1 = bi2de(x(1:13));
+x2 = bi2de(x(14:26));
+
+t = {x2,3};
+disp(t{1});
+disp(t{2});
+t{3} = 5;
+
+for i=1:20
+    
+end
+
+
