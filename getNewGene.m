@@ -3,5 +3,11 @@ function [newCell]=getNewGene(createNum)
       createNum
  end
  
- newCell = {};
- return 
+ newCell = cell(1,createNum);
+
+ for i=1:createNum
+    x = randi([0 1],1,26);
+    newCell{i} = x;
+ end
+ 
+ return

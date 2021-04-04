@@ -22,4 +22,4 @@ for i=1:20
     fprintf("t2: %d \n",t2);
 end
 
-
+outss = getNewGene(3);
