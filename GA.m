@@ -10,6 +10,6 @@ ss = getNewGene(20);
 for i=1:length(ss)
     fprintf("now: %d \n",i);
     vec = convGene2Value(ss{i});
-    fprintf("t1: %d \n",vec(1));
-    fprintf("t2: %d \n",vec(2));
+    fprintf("X: %d \n",round(vec(1)));
+    fprintf("Y: %d \n",round(vec(2)));
 end
