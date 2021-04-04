@@ -9,8 +9,7 @@ mesh(xx, yy, zz);		% 畫出立體網狀圖
 ss = getNewGene(20);
 for i=1:length(ss)
     fprintf("now: %d \n",i);
-    t1 = bi2de(ss{i}(1:13));
-    t2 = bi2de(ss{i}(14:26));
-    fprintf("t1: %d \n",t1);
-    fprintf("t2: %d \n",t2);
+    vec = convGene2Value(ss{i});
+    fprintf("t1: %d \n",vec(1));
+    fprintf("t2: %d \n",vec(2));
 end
