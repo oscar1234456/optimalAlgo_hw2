@@ -8,12 +8,23 @@
 pop_size = 20;
 pc = 0.25;
 pm = 0.01;
-
+fitnessRec = zeros(1,20);
 thisGene = getNewGene(pop_size);
 for i=1:length(thisGene)
     fprintf("now: %d \n",i);
     vec = convGene2Value(thisGene{i});
-    fprintf("X: %d \n",round(vec(1)));
-    fprintf("Y: %d \n",round(vec(2)));
-    fprintf("fit: %d \n",round(fitness(vec(1), vec(2))));
+    fprintf("X: %4.3f \n",roundn(vec(1), -3));
+    fprintf("Y: %4.3f \n",roundn(vec(2), -3));
+    fprintf("fit: %5.4f \n",roundn(fitness(vec(1), vec(2)), -4));
+    fitnessRec(i) = roundn(fitness(vec(1), vec(2)), -4);
 end
+[newGene, pickRecord] = selectionProcess(thisGene);
+for i=1:length(newGene)
+    fprintf("now: %d \n",i);
+    vec = convGene2Value(newGene{i});
+    fprintf("X: %4.3f \n",roundn(vec(1), -3));
+    fprintf("Y: %4.3f \n",roundn(vec(2), -3));
+    fprintf("fit: %5.4f \n",roundn(fitness(vec(1), vec(2)), -4));
+    fitnessRec(i) = roundn(fitness(vec(1), vec(2)), -4);
+end
+
