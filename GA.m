@@ -6,7 +6,7 @@
 % % colormap(zeros(1,3));		% 以黑色呈現   
 
 pop_size = 20;
-pc = 0.25;
+pc = 0.80;
 pm = 0.01;
 generation = 200;
 fitnessRec1 = zeros(1,pop_size);
@@ -14,6 +14,7 @@ fitnessRec2 = zeros(1,pop_size);
 fitnessRec3 = zeros(1,pop_size);
 fitnessRec4 = zeros(1,pop_size);
 fitnessRecAll = zeros(1,generation);
+fitnessRecAllSum =  zeros(1,generation);
 %born Generation
 thisGene = getNewGene(pop_size);
 %evaluate phase 1
@@ -27,6 +28,7 @@ for i=1:length(thisGene)
     fitnessRec1(i) = roundn(fitness(vec(1), vec(2)), -4);
 end
 fitnessRecAll(1) = max(fitnessRec1);
+fitnessRecAllSum(1) = sum(fitnessRec1);
 
 for times=2:generation
     fprintf("Generations %d \n", times);
@@ -62,5 +64,10 @@ for times=2:generation
         fitnessRec4(i) = roundn(fitness(vec2(1), vec2(2)), -4);
     end
     fitnessRecAll(times) = max(fitnessRec4);
+    fitnessRecAllSum(times) = sum(fitnessRec4);
+    thisGene = newGene3;
 end
+nexttile
 plot(0:generation, [0,fitnessRecAll]);
+nexttile
+plot(0:generation, [0,fitnessRecAllSum]/generation);
