@@ -1,3 +1,4 @@
+%This Function was used to create a new Generation
 function [newCell]=getNewGene(createNum)
  arguments
       createNum
