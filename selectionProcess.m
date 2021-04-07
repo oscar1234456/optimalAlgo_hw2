@@ -10,8 +10,8 @@ function [greatGene, pickRecord] = selectionProcess(oldGene)
  
  %Calculate fitness value
  for i=1:length(oldGene)
-    vec = convGene2Value(oldGene{i});
-    eval(i) = roundn(fitness(vec(1), vec(2)), -4);
+    vecs = convGene2Value(oldGene{i});
+    eval(i) = roundn(fitness(vecs(1), vecs(2)), -4);
  end
  
  %pick Max fitness Value

@@ -8,12 +8,17 @@
 pop_size = 20;
 pc = 0.25;
 pm = 0.01;
-fitnessRec1 = zeros(1,20);
-fitnessRec2 = zeros(1,20);
-fitnessRec3 = zeros(1,20);
+generation = 200;
+fitnessRec1 = zeros(1,pop_size);
+fitnessRec2 = zeros(1,pop_size);
+fitnessRec3 = zeros(1,pop_size);
+fitnessRec4 = zeros(1,pop_size);
+fitnessRecAll = zeros(1,generation);
+%born Generation
 thisGene = getNewGene(pop_size);
 %evaluate phase 1
 for i=1:length(thisGene)
+    disp("Generation 1");
     fprintf("now: %d \n",i);
     vec = convGene2Value(thisGene{i});
     fprintf("X: %4.3f \n",roundn(vec(1), -3));
@@ -21,25 +26,41 @@ for i=1:length(thisGene)
     fprintf("fit: %5.4f \n",roundn(fitness(vec(1), vec(2)), -4));
     fitnessRec1(i) = roundn(fitness(vec(1), vec(2)), -4);
 end
+fitnessRecAll(1) = max(fitnessRec1);
 
-[newGene, pickRecord] = selectionProcess(thisGene); %pick gene
-%evaluate again 2
-for i=1:length(newGene)
-    fprintf("now: %d \n",i);
-    vec = convGene2Value(newGene{i});
-    fprintf("X: %4.3f \n",roundn(vec(1), -3));
-    fprintf("Y: %4.3f \n",roundn(vec(2), -3));
-    fprintf("fit: %5.4f \n",roundn(fitness(vec(1), vec(2)), -4));
-    fitnessRec2(i) = roundn(fitness(vec(1), vec(2)), -4);
-end
+for times=2:generation
+    fprintf("Generations %d \n", times);
+    [newGene, pickRecord] = selectionProcess(thisGene); %pick gene
+%     evaluate again 2
+    for i=1:length(newGene)
+%         fprintf("now: %d \n",i);
+        vec = convGene2Value(newGene{i});
+%         fprintf("X: %4.3f \n",roundn(vec(1), -3));
+%         fprintf("Y: %4.3f \n",roundn(vec(2), -3));
+%         fprintf("fit: %5.4f \n",roundn(fitness(vec(1), vec(2)), -4));
+        fitnessRec2(i) = roundn(fitness(vec(1), vec(2)), -4);
+    end
 
-newGene = crossoveer(newGene, pc); %crossover
-%evaluate again 3
-for i=1:length(newGene)
-    fprintf("now: %d \n",i);
-    vec = convGene2Value(newGene{i});
-    fprintf("X: %4.3f \n",roundn(vec(1), -3));
-    fprintf("Y: %4.3f \n",roundn(vec(2), -3));
-    fprintf("fit: %5.4f \n",roundn(fitness(vec(1), vec(2)), -4));
-    fitnessRec3(i) = roundn(fitness(vec(1), vec(2)), -4);
+   newGene2 = crossoveer(newGene, pc); %crossover
+    %evaluate again 3
+    % for i=1:length(newGene)
+    %     fprintf("now: %d \n",i);
+    %     vec = convGene2Value(newGene{i});
+    %     fprintf("X: %4.3f \n",roundn(vec(1), -3));
+    %     fprintf("Y: %4.3f \n",roundn(vec(2), -3));
+    %     fprintf("fit: %5.4f \n",roundn(fitness(vec(1), vec(2)), -4));
+    %     fitnessRec3(i) = roundn(fitness(vec(1), vec(2)), -4);
+    % end
+
+   newGene3 = mutation(newGene2, pm);
+    for i=1:length(newGene3)
+        fprintf("now: %d \n",i);
+        vec2 = convGene2Value(newGene3{i});
+        fprintf("X: %4.3f \n",roundn(vec2(1), -3));
+        fprintf("Y: %4.3f \n",roundn(vec2(2), -3));
+        fprintf("fit: %5.4f \n",roundn(fitness(vec2(1), vec2(2)), -4));
+        fitnessRec4(i) = roundn(fitness(vec2(1), vec2(2)), -4);
+    end
+    fitnessRecAll(times) = max(fitnessRec4);
 end
+plot(0:generation, [0,fitnessRecAll]);
