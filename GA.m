@@ -45,7 +45,7 @@ for times=2:generation
     end
 
    newGene2 = crossoveer(newGene, pc); %crossover
-    evaluate again 3
+    %evaluate again 3
     for i=1:length(newGene)
         fprintf("now: %d \n",i);
         vec = convGene2Value(newGene{i});
